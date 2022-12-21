@@ -1,8 +1,25 @@
+.timerContainer {
+  display: flex;
+  align-items: center;
+  background: #ffd5d5;
+  padding: 5px;
+  color: #d86464;
+  height: 30px;
+  border: 1px solid #f3bfbf;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 
-      .timer {
-        background: #ffd5d5;
-        color: #cc3737;
-        height: 50px;
-        border:1px solid #f3bfbf;
-        border-radius: 10px;
-      }
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .icon {
+  //  margin-left: 20px;
+  }
+}
+}

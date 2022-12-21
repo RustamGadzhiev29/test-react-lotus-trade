@@ -1,25 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import styles from "./Timer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { hourglass } from "@fortawesome/fontawesome-free";
+import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
+import { userType } from "../State/State";
 
-const Timer = () => {
+type PropsType = {
+  data: Array<userType>;
+};
+
+const Timer: FC<PropsType> = ({ data }) => {
   const [time, setTime] = useState({
     hours: 0,
-    minutes: 2,
-    seconds: 0,
+    minutes: 1,
+    seconds: 59,
   });
+
+  const [newState, setNewState] = useState(data);
+
+  const [index, setIndex] = useState(2);
 
   const reset = () =>
     setTime({
       hours: time.hours,
-      minutes: time.minutes,
-      seconds: time.seconds,
+      minutes: 1,
+      seconds: 59,
     });
 
   const tick = () => {
-    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) reset();
-    else if (time.hours === 0 && time.seconds === 0) {
+    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) {
+      setIndex(data.length === index ? 1 : index + 1);
+      reset();
+      setNewState(
+        data.map((d) => {
+          return d.id === index
+            ? { ...d, isDisable: true }
+            : { ...d, isDisable: false };
+        })
+      );
+    } else if (time.hours === 0 && time.seconds === 0) {
       setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
     } else if (time.seconds === 0) {
       setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
@@ -38,17 +56,26 @@ const Timer = () => {
   });
 
   return (
-    <tr>
-      <th>ХОД</th>
-      <th>
-        <div className={styles.timer}>
-          <p>{`${time.hours.toString().padStart(2, "0")}:${time.minutes
-            .toString()
-            .padStart(2, "0")}:${time.seconds.toString().padStart(2, "0")}`}</p>
-          {/* <FontAwesomeIcon icon={hourglass} /> */}
-        </div>
-      </th>
-    </tr>
+    <>
+      {newState.map((s) => (
+        <th key={s.id}>
+          {s.isDisable ? (
+            <div className={styles.timerContainer}>
+              <div className={styles.timer}>
+                <p>{`${time.hours.toString().padStart(2, "0")}:${time.minutes
+                  .toString()
+                  .padStart(2, "0")}:${time.seconds
+                  .toString()
+                  .padStart(2, "0")}`}</p>
+              </div>
+              <FontAwesomeIcon className={styles.icon} icon={faHourglassEnd} />
+            </div>
+          ) : (
+            " "
+          )}
+        </th>
+      ))}
+    </>
   );
 };
 
