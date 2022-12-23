@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { userType } from "../State/State";
+import { userType } from "../../State/State";
 // import style from "./Rows.module.scss";
 type PropsType = {
   data: Array<userType>;

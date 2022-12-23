@@ -1,21 +1,11 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext } from "react";
 import Rows from "../RowsLayout/Rows";
-import { StateContext } from "../State/State";
-import Timer from "../Timer/Timer";
+import { StateContext } from "../../State/State";
 import style from "./TableLayout.module.scss";
+import Timer from "../Timer/Timer";
 
 const TableLayout: FC = () => {
   const data = useContext(StateContext);
-
-  // const [blocks, setBlocks] = useState({
-  //   block1: false,
-  //   block2: false,
-  //   block3: false,
-  //   block4: false,
-  // });
-  // setInterval(() => {
-  //   setBlocks((prev) => ({ ...prev, block1: true }));
-  // }, 9000);
 
   return (
     <div>
@@ -30,7 +20,7 @@ const TableLayout: FC = () => {
           <thead>
             <tr className={style.tablebla}>
               <th>ХОД</th>
-              <Timer data={data} />
+              <Timer />
             </tr>
             <tr>
               <th>Параметры и требования</th>

@@ -1,21 +1,18 @@
+@import "@variables/variables.scss";
+@import "@mixins/mixins.scss";
+
 .timerContainer {
-  display: flex;
-  align-items: center;
-  background: #ffd5d5;
+  @include flex (wrap, flex-end, center, no-wrap);
+  background: $bgColor2;
   padding: 5px;
-  color: #d86464;
+  color:$textColor2;
   height: 30px;
   border: 1px solid #f3bfbf;
   border-radius: 5px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   width: 100%;
 
 .timer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex (wrap, center, center, no-wrap);
   width: 100%;
 
   .icon {

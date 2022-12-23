@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../Header/Header";
 import TableLayout from "../TableLayout/TableLayout";
+import styles from "./Layout.module.scss";
 
 const Layout = () => {
   return (
-    <div>
+    <div className={styles.content}>
       <Header />
-      <div className="layout" />
+      <div />
       <TableLayout />
     </div>
   );

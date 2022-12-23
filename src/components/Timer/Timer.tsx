@@ -2,20 +2,22 @@ import React, { useState, useEffect, FC } from "react";
 import styles from "./Timer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassEnd } from "@fortawesome/free-solid-svg-icons";
-import { userType } from "../State/State";
+import { ReducerType } from "../../Redux/redux-store";
+import { useSelector, useDispatch } from "react-redux";
 
-type PropsType = {
-  data: Array<userType>;
-};
+import { changeStatusTypeCreator } from "../../Redux/reducer";
 
-const Timer: FC<PropsType> = ({ data }) => {
+const Timer: FC = () => {
+  const items = useSelector((state: ReducerType) => state.state);
+  const dispatch = useDispatch();
+
   const [time, setTime] = useState({
     hours: 0,
     minutes: 1,
     seconds: 59,
   });
 
-  const [newState, setNewState] = useState(data);
+  // const [newState, setNewState] = useState(data);
 
   const [index, setIndex] = useState(2);
 
@@ -28,15 +30,9 @@ const Timer: FC<PropsType> = ({ data }) => {
 
   const tick = () => {
     if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) {
-      setIndex(data.length === index ? 1 : index + 1);
+      setIndex(items.length === index ? 1 : index + 1);
       reset();
-      setNewState(
-        data.map((d) => {
-          return d.id === index
-            ? { ...d, isDisable: true }
-            : { ...d, isDisable: false };
-        })
-      );
+      dispatch(changeStatusTypeCreator(index));
     } else if (time.hours === 0 && time.seconds === 0) {
       setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
     } else if (time.seconds === 0) {
@@ -54,10 +50,10 @@ const Timer: FC<PropsType> = ({ data }) => {
     const timerId = setInterval(() => tick(), 1000);
     return () => clearInterval(timerId);
   });
-
   return (
     <>
-      {newState.map((s) => (
+      {console.log(items)}
+      {items.map((s) => (
         <th key={s.id}>
           {s.isDisable ? (
             <div className={styles.timerContainer}>

@@ -24,7 +24,7 @@ module.exports = {
         ].filter(Boolean),
         alias: {
             '@': path.resolve(__dirname, 'src/'),       
-            '@components': path.resolve(__dirname, 'src/Components'),
+            '@components': path.resolve(__dirname, 'src/components'),
             '@mixins': path.resolve(__dirname, 'src/Styles'),
             '@variables': path.resolve(__dirname, 'src/Styles'),
            
